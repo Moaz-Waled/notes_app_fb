@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:notes_app_fb/core/constants/app_images.dart';
 import 'package:notes_app_fb/core/utils/size_config.dart';
 
-class LoginLogo extends StatelessWidget {
-  const LoginLogo({super.key});
+class AppLogo extends StatelessWidget {
+  const AppLogo({super.key});
 
   @override
   Widget build(BuildContext context) {

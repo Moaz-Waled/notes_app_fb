@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:notes_app_fb/core/cache/cache_helper.dart';
 import 'package:notes_app_fb/core/constants/google.dart';
-import 'package:notes_app_fb/features/auth/presentation/pages/login_view.dart';
+import 'package:notes_app_fb/features/auth/presentation/pages/login/login_view.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
