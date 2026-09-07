@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "768789716710",
+    "project_id": "notes-app-fb460",
+    "storage_bucket": "notes-app-fb460.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:768789716710:android:a8735b28fa142d6346a527",
+        "android_client_info": {
+          "package_name": "com.example.notes_app_fb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "768789716710-7dfg6hj94om0hdlp6ic35nlrpmk7du9a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.notes_app_fb",
+            "certificate_hash": "b719b07c94c80ad281013ff3c811925667b9d3dc"
+          }
+        },
+        {
+          "client_id": "768789716710-43r1peses4htj7ljo7i7rc4o5l4pira2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtDBQgh-8QrKxhSu-DnqysioX7k_77AJE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "768789716710-43r1peses4htj7ljo7i7rc4o5l4pira2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
