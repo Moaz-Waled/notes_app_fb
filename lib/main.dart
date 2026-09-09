@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:notes_app_fb/core/cache/cache_helper.dart';
 import 'package:notes_app_fb/core/constants/google.dart';
 import 'package:notes_app_fb/features/auth/presentation/pages/login/login_view.dart';
+import 'package:notes_app_fb/features/notes/presentation/pages/home/home_view.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +22,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       debugShowMaterialGrid: false,
-      home: LoginView(),
+      home: CacheHelper().getDataBool(key: 'isLoggedin') ?? false
+          ? HomeView()
+          : LoginView(),
     );
   }
 }
