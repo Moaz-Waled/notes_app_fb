@@ -39,7 +39,10 @@ class _SignupFormState extends State<SignupForm> {
           AppSnackbar.showSnackbar(message: state.errMessage);
         }
         if (state is CreateUserSuccess) {
-          AppSnackbar.showSnackbar(message: 'Success');
+          AppSnackbar.showSnackbar(
+            message:
+                'Success. Email verification sent please check (you can check junk or spam)',
+          );
           Get.off(
             () => LoginView(),
             transition: Transition.leftToRight,
@@ -58,7 +61,11 @@ class _SignupFormState extends State<SignupForm> {
               AppTextField(hint: 'Enter your username'),
               VerticalSpace(value: 2),
               FieldTitle(title: 'Email'),
-              AppTextField(controller: email, hint: 'Enter your email'),
+              AppTextField(
+                controller: email,
+                hint: 'Enter your email',
+                isEmail: true,
+              ),
               VerticalSpace(value: 2),
               FieldTitle(title: 'Password'),
               AppTextField(
@@ -80,6 +87,8 @@ class _SignupFormState extends State<SignupForm> {
               FieldTitle(title: 'Confirm password'),
               AppTextField(
                 hint: 'Confirm your password',
+                isConfirmPassword: true,
+                password: password.text,
                 suffixIcon: IconButton(
                   onPressed: () {
                     setState(() {

@@ -14,6 +14,7 @@ class AuthRepoImpl extends AuthRepo {
     try {
       final UserCredential credential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
+      await FirebaseAuth.instance.currentUser!.sendEmailVerification();
       return Right(credential);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -64,6 +65,20 @@ class AuthRepoImpl extends AuthRepo {
       );
     } on GoogleSignInException catch (e) {
       return Left(e.code.name);
+    } catch (e) {
+      return Left(e.toString());
+    }
+  }
+
+  @override
+  Future<Either<String, String>> sendResetPasswordEmail({
+    required String email,
+  }) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      return Right('Email sent successfully');
+    } on FirebaseAuthException catch (e) {
+      return Left(e.code);
     } catch (e) {
       return Left(e.toString());
     }

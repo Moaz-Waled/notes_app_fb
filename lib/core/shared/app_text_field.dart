@@ -6,6 +6,9 @@ class AppTextField extends StatelessWidget {
   final void Function(String)? onChanged;
   final Widget? suffixIcon;
   final bool? obscureText;
+  final bool? isConfirmPassword;
+  final String? password;
+  final bool? isEmail;
 
   const AppTextField({
     super.key,
@@ -14,12 +17,16 @@ class AppTextField extends StatelessWidget {
     this.onChanged,
     this.suffixIcon,
     this.obscureText,
+    this.isConfirmPassword,
+    this.password,
+    this.isEmail,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      keyboardType: isEmail ?? false ? TextInputType.emailAddress : null,
       decoration: InputDecoration(
         filled: true,
         fillColor: const Color.fromARGB(46, 158, 158, 158),
@@ -36,6 +43,17 @@ class AppTextField extends StatelessWidget {
       validator: (value) {
         if (value!.trim().isEmpty) {
           return 'this field is required';
+        }
+        if ((isConfirmPassword ?? false) && value.trim() != password) {
+          return 'confirm password must be similar to password';
+        }
+        if (isEmail ?? false) {
+          final emailRegex = RegExp(
+            r'^[A-Za-z0-9._%+-]+@(gmail|yahoo|outlook|hotmail|icloud|protonmail|proton|zohomail|gmx|aol)\.(com|me)$',
+          );
+          if (!emailRegex.hasMatch(value)) {
+            return 'please enter a valid email';
+          }
         }
         return null;
       },

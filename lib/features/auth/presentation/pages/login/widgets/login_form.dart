@@ -10,6 +10,7 @@ import 'package:notes_app_fb/features/auth/presentation/manager/cubit/auth_cubit
 import 'package:notes_app_fb/features/auth/presentation/manager/cubit/auth_state.dart';
 import 'package:notes_app_fb/features/auth/presentation/pages/login/widgets/google_login_button.dart';
 import 'package:notes_app_fb/features/auth/presentation/pages/login/widgets/user_login_button.dart';
+import 'package:notes_app_fb/features/auth/presentation/pages/reset_password/reset_password_view.dart';
 import 'package:notes_app_fb/features/notes/presentation/pages/home/home_view.dart';
 
 class LoginForm extends StatefulWidget {
@@ -26,18 +27,6 @@ class _LoginFormState extends State<LoginForm> {
   TextEditingController password = TextEditingController();
 
   @override
-  void initState() {
-    super.initState();
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (user == null) {
-        print('User is currently signed out');
-      } else {
-        print('User is signed in');
-      }
-    });
-  }
-
-  @override
   void dispose() {
     email.dispose();
     password.dispose();
@@ -52,11 +41,18 @@ class _LoginFormState extends State<LoginForm> {
           AppSnackbar.showSnackbar(message: state.errMessage);
         }
         if (state is LoginSuccess) {
-          Get.offAll(
-            () => HomeView(),
-            transition: Transition.fade,
-            duration: Duration(milliseconds: 300),
-          );
+          if (FirebaseAuth.instance.currentUser!.emailVerified) {
+            Get.offAll(
+              () => HomeView(),
+              transition: Transition.fade,
+              duration: Duration(milliseconds: 300),
+            );
+          } else {
+            AppSnackbar.showSnackbar(
+              message:
+                  'Verify your email first. Check your email (you can check junk or spam)',
+            );
+          }
         }
         if (state is GoogleSigninFailure) {
           AppSnackbar.showSnackbar(message: state.errMessage);
@@ -77,7 +73,11 @@ class _LoginFormState extends State<LoginForm> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               FieldTitle(title: 'Email'),
-              AppTextField(controller: email, hint: 'Enter your email'),
+              AppTextField(
+                controller: email,
+                hint: 'Enter your email',
+                isEmail: true,
+              ),
               VerticalSpace(value: 2),
               FieldTitle(title: 'Password'),
               AppTextField(
@@ -99,7 +99,13 @@ class _LoginFormState extends State<LoginForm> {
               Align(
                 alignment: Alignment.topRight,
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(
+                      () => ResetPasswordView(),
+                      transition: Transition.upToDown,
+                      duration: Duration(milliseconds: 300),
+                    );
+                  },
                   child: Text(
                     'Forget password ?',
                     style: TextStyle(

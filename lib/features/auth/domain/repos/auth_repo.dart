@@ -13,4 +13,6 @@ abstract class AuthRepo {
   });
 
   Future<Either<String, UserCredential>> googleSignin();
+
+  Future<Either<String, String>> sendResetPasswordEmail({required String email});
 }

@@ -42,4 +42,15 @@ class AuthCubit extends Cubit<AuthState> {
       (user) => emit(GoogleSigninSuccess(user: user)),
     );
   }
+
+  Future<void> sendResetPasswordEmail({required String email}) async {
+    emit(SendResetPasswordEmailLoading());
+    final response = await authRepo.sendResetPasswordEmail(email: email);
+
+    response.fold(
+      (errMessage) =>
+          emit(SendResetPasswordEmailFailure(errMessage: errMessage)),
+      (message) => emit(SendResetPasswordEmailSuccess(message: message)),
+    );
+  }
 }

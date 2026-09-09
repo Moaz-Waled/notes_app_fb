@@ -49,3 +49,17 @@ class GoogleSigninSuccess extends AuthState {
 
   GoogleSigninSuccess({required this.user});
 }
+
+class SendResetPasswordEmailLoading extends AuthState {}
+
+class SendResetPasswordEmailFailure extends AuthState {
+  final String errMessage;
+
+  SendResetPasswordEmailFailure({required this.errMessage});
+}
+
+class SendResetPasswordEmailSuccess extends AuthState {
+  final String message;
+
+  SendResetPasswordEmailSuccess({required this.message});
+}
