@@ -35,3 +35,17 @@ class LoginSuccess extends AuthState {
 class SignoutLoading extends AuthState {}
 
 class SignoutSuccess extends AuthState {}
+
+class GoogleSigninLoading extends AuthState {}
+
+class GoogleSigninFailure extends AuthState {
+  final String errMessage;
+
+  GoogleSigninFailure({required this.errMessage});
+}
+
+class GoogleSigninSuccess extends AuthState {
+  final UserCredential user;
+
+  GoogleSigninSuccess({required this.user});
+}

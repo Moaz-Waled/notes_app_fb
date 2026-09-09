@@ -58,6 +58,16 @@ class _LoginFormState extends State<LoginForm> {
             duration: Duration(milliseconds: 300),
           );
         }
+        if (state is GoogleSigninFailure) {
+          AppSnackbar.showSnackbar(message: state.errMessage);
+        }
+        if (state is GoogleSigninSuccess) {
+          Get.offAll(
+            () => HomeView(),
+            transition: Transition.fade,
+            duration: Duration(milliseconds: 300),
+          );
+        }
       },
       builder: (context, state) {
         final authCubit = context.read<AuthCubit>();
@@ -115,7 +125,13 @@ class _LoginFormState extends State<LoginForm> {
                       },
                     ),
               VerticalSpace(value: 4),
-              GoogleLoginButton(onPressed: () {}),
+              state is GoogleSigninLoading
+                  ? Center(child: CircularProgressIndicator(color: Colors.red))
+                  : GoogleLoginButton(
+                      onPressed: () {
+                        authCubit.googleSignin();
+                      },
+                    ),
             ],
           ),
         );

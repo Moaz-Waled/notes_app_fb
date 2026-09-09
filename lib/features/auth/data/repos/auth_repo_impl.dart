@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:notes_app_fb/core/cache/cache_helper.dart';
+import 'package:notes_app_fb/core/constants/google.dart';
 import 'package:notes_app_fb/features/auth/domain/repos/auth_repo.dart';
 
 class AuthRepoImpl extends AuthRepo {
@@ -42,6 +44,26 @@ class AuthRepoImpl extends AuthRepo {
         return Left('Incorrect email or password.');
       }
       return Left(e.message ?? 'something went wrong');
+    } catch (e) {
+      return Left(e.toString());
+    }
+  }
+
+  @override
+  Future<Either<String, UserCredential>> googleSignin() async {
+    try {
+      final GoogleSignInAccount googleUser = await Google.googleSignIn
+          .authenticate();
+      final GoogleSignInAuthentication googleAuth = googleUser.authentication;
+      final credential = GoogleAuthProvider.credential(
+        idToken: googleAuth.idToken,
+      );
+      await CacheHelper().saveData(key: 'isLoggedin', value: true);
+      return Right(
+        await FirebaseAuth.instance.signInWithCredential(credential),
+      );
+    } on GoogleSignInException catch (e) {
+      return Left(e.code.name);
     } catch (e) {
       return Left(e.toString());
     }
