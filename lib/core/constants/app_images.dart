@@ -7,4 +7,5 @@ class AppImages {
 
 class AppIcons {
   static final String google = 'assets/icons/google.png';
+  static final String folder = 'assets/icons/folder.png';
 }

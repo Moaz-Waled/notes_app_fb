@@ -1,11 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:notes_app_fb/features/auth/data/repos/auth_repo_impl.dart';
+import 'package:notes_app_fb/features/auth/domain/repos/auth_repo.dart';
 import 'package:notes_app_fb/features/auth/presentation/manager/cubit/auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(AuthInitial());
+  AuthCubit(this.authRepo) : super(AuthInitial());
 
-  AuthRepoImpl authRepo = AuthRepoImpl();
+  final AuthRepo authRepo;
 
   Future<void> createUser({
     required String email,

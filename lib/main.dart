@@ -23,6 +23,17 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       debugShowMaterialGrid: false,
+      theme: ThemeData(
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.orange,
+          titleTextStyle: TextStyle(
+            fontSize: 30,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+          iconTheme: IconThemeData(color: Colors.white),
+        ),
+      ),
       home:
           ((CacheHelper().getDataBool(key: 'isLoggedin') ?? false) &&
               (FirebaseAuth.instance.currentUser!.emailVerified))

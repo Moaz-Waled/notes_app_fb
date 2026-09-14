@@ -11,7 +11,9 @@ class LoginBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
+    if (SizeConfig.defaultSize == null) {
+      SizeConfig().init(context);
+    }
     return Container(
       padding: EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * 2),
       child: ListView(
