@@ -9,6 +9,7 @@ class AppTextField extends StatelessWidget {
   final bool? isConfirmPassword;
   final String? password;
   final bool? isEmail;
+  final String? initialValue;
 
   const AppTextField({
     super.key,
@@ -20,6 +21,7 @@ class AppTextField extends StatelessWidget {
     this.isConfirmPassword,
     this.password,
     this.isEmail,
+    this.initialValue,
   });
 
   @override

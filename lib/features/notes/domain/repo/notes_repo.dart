@@ -5,4 +5,11 @@ abstract class NotesRepo {
   Future<Either<String, String>> addCategory({required String categoryName});
 
   Future<Either<String, QuerySnapshot<Map<String, dynamic>>>> getCategories();
+
+  Future<Either<String, String>> deleteCategory({required String categoryId});
+
+  Future<Either<String, String>> renameCategory({
+    required String categoryId,
+    required String newName,
+  });
 }

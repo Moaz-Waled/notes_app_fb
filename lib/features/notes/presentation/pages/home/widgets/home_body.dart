@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart' hide Transition;
+import 'package:get/route_manager.dart';
 import 'package:notes_app_fb/core/shared/app_snackbar.dart';
 import 'package:notes_app_fb/core/utils/size_config.dart';
 import 'package:notes_app_fb/features/notes/presentation/manager/cubit/notes_cubit.dart';
 import 'package:notes_app_fb/features/notes/presentation/pages/home/widgets/category_item.dart';
+import 'package:notes_app_fb/features/notes/presentation/pages/rename_category/rename_category_view.dart';
 
 class HomeBody extends StatefulWidget {
   const HomeBody({super.key});
@@ -36,9 +38,18 @@ class _HomeBodyState extends State<HomeBody> {
           if (state is GetCategoryDataSuccess) {
             categories = state.categories;
           }
+          if (state is DeleteCategoryFailure) {
+            AppSnackbar.showSnackbar(message: state.errMessage);
+          }
+          if (state is DeleteCategorySuccess) {
+            AppSnackbar.showSnackbar(message: state.message);
+            context.read<NotesCubit>().getCategories();
+          }
         },
         builder: (context, state) {
-          return state is GetCategoryDataLoading
+          final notesCubit = context.read<NotesCubit>();
+          return state is GetCategoryDataLoading ||
+                  state is DeleteCategoryLoading
               ? Center(child: CircularProgressIndicator(color: Colors.orange))
               : categories.isEmpty
               ? Center(
@@ -55,6 +66,21 @@ class _HomeBodyState extends State<HomeBody> {
                   itemBuilder: (context, index) {
                     return CategoryItem(
                       title: categories[index]['categoryName'],
+                      onDeletePressed: () {
+                        notesCubit.deleteCategory(
+                          categoryId: categories[index].id,
+                        );
+                      },
+                      onEditPressed: () {
+                        Get.to(
+                          () => RenameCategoryView(
+                            categoryName: categories[index]['categoryName'],
+                            categoryId: categories[index].id,
+                          ),
+                          transition: Transition.upToDown,
+                          duration: Duration(milliseconds: 300),
+                        );
+                      },
                       onTap: () {},
                     );
                   },

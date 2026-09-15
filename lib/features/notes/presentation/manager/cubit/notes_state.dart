@@ -35,3 +35,31 @@ final class GetCategoryDataSuccess extends NotesState {
 
   GetCategoryDataSuccess({required this.categories});
 }
+
+final class DeleteCategoryLoading extends NotesState {}
+
+final class DeleteCategoryFailure extends NotesState {
+  final String errMessage;
+
+  DeleteCategoryFailure({required this.errMessage});
+}
+
+final class DeleteCategorySuccess extends NotesState {
+  final String message;
+
+  DeleteCategorySuccess({required this.message});
+}
+
+final class RenameCategoryLoading extends NotesState {}
+
+final class RenameCategoryFailure extends NotesState {
+  final String errMessage;
+
+  RenameCategoryFailure({required this.errMessage});
+}
+
+final class RenameCategorySuccess extends NotesState {
+  final String message;
+
+  RenameCategorySuccess({required this.message});
+}

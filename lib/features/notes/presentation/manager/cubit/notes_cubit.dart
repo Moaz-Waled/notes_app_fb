@@ -37,4 +37,30 @@ class NotesCubit extends Cubit<NotesState> {
       (categories) => emit(GetCategoryDataSuccess(categories: categories.docs)),
     );
   }
+
+  Future<void> deleteCategory({required String categoryId}) async {
+    emit(DeleteCategoryLoading());
+    final response = await notesRepo.deleteCategory(categoryId: categoryId);
+
+    response.fold(
+      (errMessage) => emit(DeleteCategoryFailure(errMessage: errMessage)),
+      (message) => emit(DeleteCategorySuccess(message: message)),
+    );
+  }
+
+  Future<void> renameCategory({
+    required String categoryId,
+    required String newName,
+  }) async {
+    emit(RenameCategoryLoading());
+    final response = await notesRepo.renameCategory(
+      categoryId: categoryId,
+      newName: newName,
+    );
+
+    response.fold(
+      (errMessage) => emit(RenameCategoryFailure(errMessage: errMessage)),
+      (message) => emit(RenameCategorySuccess(message: message)),
+    );
+  }
 }
