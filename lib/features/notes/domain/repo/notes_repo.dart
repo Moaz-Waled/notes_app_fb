@@ -12,4 +12,24 @@ abstract class NotesRepo {
     required String categoryId,
     required String newName,
   });
+
+  Future<Either<String, String>> addNote({
+    required String categoryId,
+    required String note,
+  });
+
+  Future<Either<String, QuerySnapshot<Map<String, dynamic>>>> getNotes({
+    required String categoryId,
+  });
+
+  Future<Either<String, String>> deleteNote({
+    required String categoryId,
+    required String noteId,
+  });
+
+  Future<Either<String, String>> editNote({
+    required String categoryId,
+    required String noteId,
+    required String newNote,
+  });
 }

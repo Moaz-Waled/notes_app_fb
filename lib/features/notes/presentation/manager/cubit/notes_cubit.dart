@@ -63,4 +63,64 @@ class NotesCubit extends Cubit<NotesState> {
       (message) => emit(RenameCategorySuccess(message: message)),
     );
   }
+
+  Future<void> addNote({
+    required String categoryId,
+    required String note,
+  }) async {
+    emit(AddNoteLoading());
+    final response = await notesRepo.addNote(
+      categoryId: categoryId,
+      note: note,
+    );
+
+    response.fold(
+      (errMessage) => emit(AddNoteFailure(errMessage: errMessage)),
+      (message) => emit(AddNoteSuccess(message: message)),
+    );
+  }
+
+  Future<void> getNotes({required String categoryId}) async {
+    emit(GetNotesLoading());
+    final response = await notesRepo.getNotes(categoryId: categoryId);
+
+    response.fold(
+      (errMessage) => emit(GetNotesFailure(errMessage: errMessage)),
+      (notes) => emit(GetNotesSuccess(notes: notes.docs)),
+    );
+  }
+
+  Future<void> deleteNote({
+    required String categoryId,
+    required String noteId,
+  }) async {
+    emit(DeleteNoteLoading());
+    final response = await notesRepo.deleteNote(
+      categoryId: categoryId,
+      noteId: noteId,
+    );
+
+    response.fold(
+      (errMessage) => emit(DeleteNoteFailure(errMessage: errMessage)),
+      (message) => emit(DeleteNoteSuccess(message: message)),
+    );
+  }
+
+  Future<void> editNote({
+    required String categoryId,
+    required String noteId,
+    required String newNote,
+  }) async {
+    emit(EditNoteLoading());
+    final response = await notesRepo.editNote(
+      categoryId: categoryId,
+      noteId: noteId,
+      newNote: newNote,
+    );
+
+    response.fold(
+      (errMessage) => emit(EditNoteFailure(errMessage: errMessage)),
+      (message) => emit(EditNoteSuccess(message: message)),
+    );
+  }
 }

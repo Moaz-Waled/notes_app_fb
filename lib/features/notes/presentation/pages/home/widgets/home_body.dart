@@ -4,6 +4,7 @@ import 'package:get/route_manager.dart';
 import 'package:notes_app_fb/core/shared/app_snackbar.dart';
 import 'package:notes_app_fb/core/utils/size_config.dart';
 import 'package:notes_app_fb/features/notes/presentation/manager/cubit/notes_cubit.dart';
+import 'package:notes_app_fb/features/notes/presentation/pages/category/category_view.dart';
 import 'package:notes_app_fb/features/notes/presentation/pages/home/widgets/category_item.dart';
 import 'package:notes_app_fb/features/notes/presentation/pages/rename_category/rename_category_view.dart';
 
@@ -81,7 +82,16 @@ class _HomeBodyState extends State<HomeBody> {
                           duration: Duration(milliseconds: 300),
                         );
                       },
-                      onTap: () {},
+                      onTap: () {
+                        Get.to(
+                          () => CategoryView(
+                            categoryName: categories[index]['categoryName'],
+                            categoryId: categories[index].id,
+                          ),
+                          transition: Transition.fade,
+                          duration: Duration(milliseconds: 300),
+                        );
+                      },
                     );
                   },
                 );
