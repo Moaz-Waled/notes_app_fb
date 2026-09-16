@@ -33,7 +33,7 @@ class CategoryView extends StatelessWidget {
           backgroundColor: Colors.orange,
           child: Icon(Icons.add, color: Colors.white),
         ),
-        body: CategoryBody(categoryId: categoryId),
+        body: CategoryBody(categoryId: categoryId, categoryName: categoryName,),
       ),
     );
   }
